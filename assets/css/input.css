@@ -1,0 +1,357 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Prata";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/Prata-Regular.woff2") format("woff2");
+}
+
+body {
+  @apply bg-white text-black;
+  font-family: "Prata", serif;
+}
+
+main {
+  @apply mt-[90px] lg:mt-[110px] bg-white;
+}
+
+.homepage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .homepage-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .homepage-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .homepage-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.pagination-container .page-numbers.current,
+.pagination .page-numbers.current {
+  background-color: #b50202;
+  color: #ffffff;
+  border-color: #b50202;
+}
+.pagination-container .page-numbers:not(.current),
+.pagination .page-numbers:not(.current) {
+  color: #111111;
+  background-color: #ffffff;
+  border-color: #d4d4d8;
+}
+.pagination-container .page-numbers:not(.current):hover,
+.pagination .page-numbers:not(.current):hover {
+  color: #111111;
+  background-color: #f4f4f5;
+  border-color: #b50202;
+}
+
+/* ===== DARK SEO CONTENT ===== */
+/* Базовый контейнер секции SEO-контента */
+.seo {
+  overflow-x: hidden; /* страховка от горизонтального пролива */
+}
+
+/* --- Заголовки --- */
+.seo h1 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #111111;
+  font-size: 1.875rem; /* text-3xl */
+}
+@media (min-width: 768px) {
+  .seo h1 {
+    font-size: 2.25rem;
+  } /* md:text-4xl */
+}
+
+.seo h2 {
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #111111;
+  font-size: 1.25rem; /* text-xl */
+}
+@media (min-width: 768px) {
+  .seo h2 {
+    font-size: 1.875rem;
+  } /* md:text-3xl */
+}
+
+.seo h3 {
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #111111;
+  font-size: 1.25rem; /* text-xl */
+}
+@media (min-width: 768px) {
+  .seo h3 {
+    font-size: 1.5rem;
+  } /* md:text-2xl */
+}
+
+.seo h4 {
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #1f2937; /* gray-800 */
+  font-size: 1.125rem; /* text-lg */
+}
+@media (min-width: 768px) {
+  .seo h4 {
+    font-size: 1.25rem;
+  } /* md:text-xl */
+}
+
+.seo h5 {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: #374151; /* gray-700 */
+  font-size: 1rem; /* text-base */
+}
+
+.seo h6 {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  color: #4b5563; /* gray-600 */
+  font-size: 0.875rem; /* text-sm */
+}
+
+/* --- Текст --- */
+.seo p {
+  margin-bottom: 1rem;
+  color: #374151; /* gray-700 */
+  line-height: 1.625; /* leading-relaxed */
+  font-size: 14px;
+}
+@media (min-width: 1024px) {
+  .seo p {
+    font-size: 16px;
+  }
+}
+
+.seo .lead {
+  color: #111827; /* gray-900 */
+  font-size: 16px;
+}
+@media (min-width: 1024px) {
+  .seo .lead {
+    font-size: 18px;
+  }
+}
+
+/* --- Списки --- */
+.seo ul,
+.seo ol {
+  margin-bottom: 1rem;
+  padding-left: 1rem;
+  color: #374151; /* gray-700 */
+}
+
+.seo ul {
+  list-style-type: disc;
+}
+.seo ol {
+  list-style-type: decimal;
+}
+.seo li {
+  margin-bottom: 0.5rem;
+}
+
+/* --- Ссылки (красный акцент) --- */
+.seo a {
+  color: #b50202;
+  transition: color 0.2s ease-in-out, text-decoration-color 0.2s;
+  text-decoration: none;
+}
+.seo a:hover {
+  color: #8d0202;
+  text-decoration: underline;
+}
+
+/* --- Таблицы (общие стили) --- */
+.seo table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1.5rem; /* mb-6 */
+}
+
+/* Заголовки и ячейки */
+.seo th {
+  border: 1px solid #e5e7eb; /* gray-200 */
+  padding: 0.5rem 1rem; /* py-2 px-4 */
+  text-align: left;
+  background-color: #f9fafb; /* gray-50 */
+  color: #111827;
+  font-weight: 500;
+  vertical-align: middle;
+}
+.seo td {
+  border: 1px solid #e5e7eb; /* gray-200 */
+  padding: 0.5rem 1rem; /* py-2 px-4 */
+  color: #374151; /* gray-700 */
+  vertical-align: top;
+}
+
+/* Чётные строки */
+.seo tr:nth-child(even) {
+  background-color: #f9fafb; /* gray-50 */
+}
+
+/* Подписи */
+.seo caption {
+  font-size: 0.875rem; /* text-sm */
+  color: #6b7280; /* gray-500 */
+  margin-bottom: 0.5rem; /* mb-2 */
+  caption-side: top;
+  text-align: left;
+}
+
+/* Контент внутри таблиц не должен ломать вёрстку */
+.seo table img,
+.seo table svg,
+.seo table video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* --- Адаптив: мобилка — делаем скролл таблицы, без «выпирания» --- */
+@media (max-width: 767.98px) {
+  /* превращаем саму таблицу в скроллируемый контейнер */
+  .seo table {
+    display: block; /* чтобы заработал overflow на самом элементе */
+    overflow-x: auto; /* горизонтальный скролл при необходимости */
+    overflow-y: auto; /* вертикальный скролл при очень высоких таблицах */
+    -webkit-overflow-scrolling: touch; /* плавность на iOS */
+    max-width: 100vw; /* не шире экрана */
+    border: 1px solid #e5e7eb; /* визуальная рамка при скролле */
+    box-sizing: border-box;
+  }
+
+  /* таблица может быть шире экрана — пусть займёт контентную ширину */
+  .seo table thead,
+  .seo table tbody,
+  .seo table tr,
+  .seo table th,
+  .seo table td {
+    white-space: nowrap; /* чтобы не «мялось» и возник скролл */
+  }
+
+  /* ограничим высоту, чтобы не занимала всю страницу (по желанию) */
+  .seo table {
+    max-height: 70vh;
+  }
+}
+
+/* --- Дополнительные элементы --- */
+.seo blockquote {
+  border-left: 4px solid #b50202;
+  padding-left: 1rem;
+  font-style: italic;
+  color: #e4e4e7; /* zinc-200 */
+  margin: 1rem 0;
+}
+
+.seo hr {
+  border: none;
+  border-top: 1px solid #27272a; /* zinc-800 */
+  margin: 1.5rem 0;
+}
+
+.seo code,
+.seo pre {
+  background-color: #0b0b0d; /* близко к bg-zinc-900 */
+  color: #ef4444; /* red-500 */
+  border-radius: 0.25rem;
+}
+.seo code {
+  padding: 0.125rem 0.25rem; /* px-1 py-0.5 */
+}
+.seo pre {
+  padding: 1rem; /* p-4 */
+  overflow-x: auto;
+}
+
+/* ===== Scrollbar ===== */
+@layer base {
+  *::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  *::-webkit-scrollbar-track {
+    background: #0d1017;
+  }
+  *::-webkit-scrollbar-thumb {
+    background-color: #dc2626;
+    border-radius: 4px;
+    border: 2px solid #0d1017;
+  }
+
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #dc2626 #0d1017;
+  }
+}
+
+.pf-range-input {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  margin: 0;
+  z-index: 20;
+}
+.pf-range-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  pointer-events: auto;
+  width: 16px;
+  height: 16px;
+  background: #dc2626;
+  border: 2px solid #0d1017;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  z-index: 30;
+}
+.pf-range-input::-moz-range-thumb {
+  pointer-events: auto;
+  width: 16px;
+  height: 16px;
+  background: #dc2626;
+  border: 2px solid #0d1017;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+  z-index: 30;
+}
+.pf-ms-dropdown::-webkit-scrollbar {
+  width: 4px;
+}
+.pf-ms-dropdown::-webkit-scrollbar-track {
+  background: #1a1f29;
+}
+.pf-ms-dropdown::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 2px;
+}
