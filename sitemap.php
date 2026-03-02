@@ -13,7 +13,7 @@ get_header();
         </h1>
 
         <?php
-        // 1) Все страницы
+        // 1) Вывод обычных страниц
         $pages = get_pages(['sort_column' => 'menu_order, post_title']);
         $exclude_slugs = ['services'];
         if ($pages) {
@@ -49,10 +49,28 @@ get_header();
         <?php endif; ?>
 
         <?php
-        // 2) Публичные кастомные типы (кроме встроенных)
-        $post_types = get_post_types(['public' => true, '_builtin' => false], 'objects');
+        // 2) Выводим ТОЛЬКО нужные кастомные типы записей.
+        // Вместо того, чтобы брать все подряд (из-за чего цеплялись дубли от старых плагинов),
+        // строго задаем массив наших актуальных типов, зарегистрированных в functions.php.
+        $allowed_post_types = [
+            'models',             // Модели
+            'dostupnost',         // Доступность
+            'seo_pages',          // Услуги
+            'seo_rayony_pages',   // Районы
+            'seo_metro_pages',    // Метро
+            'seo_hair_pages',     // Цвет волос
+            'seo_rost_pages',     // Рост
+            'seo_ves_pages',      // Вес
+            'seo_vozrast_pages',  // Возраст
+            'seo_bust_pages'      // Размер груди
+        ];
 
-        foreach ($post_types as $pt):
+        foreach ($allowed_post_types as $pt_name):
+            $pt = get_post_type_object($pt_name);
+            
+            // Если тип не существует или скрыт — пропускаем
+            if (!$pt || !$pt->public) continue; 
+            
             $items = get_posts([
                 'post_type'                => $pt->name,
                 'posts_per_page'           => -1,
@@ -91,5 +109,4 @@ get_header();
     </div>
 </main>
 
-
-<?php get_footer();
+<?php get_footer(); ?>

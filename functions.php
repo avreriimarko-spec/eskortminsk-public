@@ -1820,3 +1820,38 @@ add_action('init', function () {
 
     update_option('drygoe_elite_term_removed', 1);
 }, 100);
+
+/**
+ * Очистка старых страниц-дублей (решение проблемы со вложенностью в Sitemap)
+ */
+add_action('init', function () {
+    // Если скрипт уже отработал один раз, больше не нагружаем базу
+    if (get_option('clear_old_seo_pages_duplicates')) {
+        return;
+    }
+
+    global $wpdb;
+    
+    // Наши новые кастомные типы с правильной вложенностью
+    $seo_cpts = "'seo_pages', 'seo_rayony_pages', 'seo_metro_pages', 'seo_hair_pages', 'seo_rost_pages', 'seo_ves_pages', 'seo_vozrast_pages', 'seo_bust_pages'";
+    
+    // Находим ID старых страниц, URL которых дублирует новые SEO-записи
+    $duplicate_ids = $wpdb->get_col("
+        SELECT DISTINCT p1.ID 
+        FROM {$wpdb->posts} p1
+        INNER JOIN {$wpdb->posts} p2 ON p1.post_name = p2.post_name 
+        WHERE p1.post_type IN ('page', 'post') 
+          AND p2.post_type IN ($seo_cpts)
+          AND p1.post_status = 'publish'
+    ");
+    
+    if (!empty($duplicate_ids)) {
+        foreach ($duplicate_ids as $id) {
+            // Мягко переносим старые дубли в корзину (при желании их можно будет восстановить)
+            wp_trash_post($id);
+        }
+    }
+    
+    // Запоминаем, что очистка завершена
+    update_option('clear_old_seo_pages_duplicates', 1);
+});
