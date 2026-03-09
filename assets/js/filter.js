@@ -408,6 +408,14 @@ document.addEventListener('DOMContentLoaded', function() {
     const sortControls = document.getElementById('sortControls');
     let currentSortBy = gridContainer.dataset.sortBy || 'date';
     let currentSortOrder = gridContainer.dataset.sortOrder || 'DESC';
+    const viewContext = gridContainer.dataset.viewContext || 'archive';
+
+    function withSortParams(urlValue) {
+        const url = new URL(urlValue, window.location.origin);
+        url.searchParams.set('sort_by', currentSortBy);
+        url.searchParams.set('sort_order', currentSortOrder);
+        return url.toString();
+    }
 
     function updateSortButtonsUI() {
         if (!sortControls) return;
@@ -444,6 +452,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 currentSortOrder = 'DESC';
             }
             updateSortButtonsUI();
+            if (viewContext === 'home') {
+                window.location.href = withSortParams(window.location.href);
+                return;
+            }
             fetchModels(1, true);
         });
     }
@@ -458,7 +470,6 @@ document.addEventListener('DOMContentLoaded', function() {
     })();
     const contextTax = gridContainer.dataset.contextTax || '';
     const contextTerm = gridContainer.dataset.contextTerm || '';
-    const viewContext = gridContainer.dataset.viewContext || 'archive';
     const initialPage = parseInt(gridContainer.dataset.currentPage || '1', 10) || 1;
     applyPaginationUiState(initialPage, window.location.href);
 
@@ -525,7 +536,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!getListEl()) return;
         setLoadingState(true);
         const params = buildRequestParams(targetPage);
-        const resolvedUrl = urlToPush ? new URL(urlToPush, window.location.origin).toString() : window.location.href;
+        const baseUrl = urlToPush ? new URL(urlToPush, window.location.origin).toString() : window.location.href;
+        const resolvedUrl = withSortParams(baseUrl);
 
         try {
             const response = await fetch(apiUrl, {
