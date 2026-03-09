@@ -228,19 +228,21 @@ document.addEventListener('DOMContentLoaded', function() {
             headerRow.appendChild(createEl('div', 'flex-1 text-center', 'Два'));
             priceWrap.appendChild(headerRow);
 
+            const format = (value) => value.replace('&nbsp;', ' ');             
+
             if (card.prices.has_outcall) {
                 const row = createEl('div', 'mt-1 flex text-sm');
                 row.appendChild(createEl('div', 'flex-1 ' + labelMuted, 'Выезд'));
-                row.appendChild(createEl('div', 'flex-1 text-center', card.prices.outcall.hour));
-                row.appendChild(createEl('div', 'flex-1 text-center', card.prices.outcall.two));
+                row.appendChild(createEl('div', 'flex-1 text-center', format(card.prices.outcall.hour)));
+                row.appendChild(createEl('div', 'flex-1 text-center', format(card.prices.outcall.two)));
                 priceWrap.appendChild(row);
             }
 
             if (card.prices.has_incall) {
                 const row = createEl('div', 'mt-1 flex text-sm border-t ' + dividerBorder + ' pt-1');
                 row.appendChild(createEl('div', 'flex-1 ' + labelMuted, 'У себя'));
-                row.appendChild(createEl('div', 'flex-1 text-center', card.prices.incall.hour));
-                row.appendChild(createEl('div', 'flex-1 text-center', card.prices.incall.two));
+                row.appendChild(createEl('div', 'flex-1 text-center', format(card.prices.incall.hour)));
+                row.appendChild(createEl('div', 'flex-1 text-center', format(card.prices.incall.two)));
                 priceWrap.appendChild(row);
             }
 
